@@ -30,7 +30,7 @@ public class Runner {
 //		educationDepartment.typeOfSchool();
 		
 		EducationDepartment educationDepartment = (num1, num2) -> num1  + num2;
-		educationDepartment.typeOfSchool(3, 4);
+		//educationDepartment.typeOfSchool(3, 4);
 		System.out.println(educationDepartment.typeOfSchool(3, 4));
 
 	}
