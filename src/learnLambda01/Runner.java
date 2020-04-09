@@ -23,13 +23,33 @@ public class Runner {
 		// System.out.println(p);
 		// }
 
-		Comparator<People> com = (People o1, People o2) -> o1.getFirstName().compareTo(o2.getFirstName());
+		// Comparator<People> com =
 
-		Collections.sort(people, com);
-		for (People p : people) {
+		// Collections.sort(people, (People o1, People o2) ->
+		// o1.getFirstName().compareTo(o2.getFirstName()));
+		// for (People p : people) {
+		//
+		// System.out.println(p);
+		// }
+
+		List<People> l = filterRecords(people);
+		for (People p : l) {
 
 			System.out.println(p);
 		}
+	}
+
+	public static List<People> filterRecords(List<People> people) {
+
+		List<People> desiredList = new ArrayList<People>();
+		for (People p : people) {
+
+			if (p.getLastName().startsWith("S"))
+				desiredList.add(p);
+
+		}
+
+		return desiredList;
 	}
 
 }
