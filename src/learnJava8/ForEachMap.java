@@ -16,6 +16,14 @@ public class ForEachMap {
 
 		employeeMap.forEach((employeeId, employeeName) -> System.out
 				.println("EMPLOYEE ID : " + employeeId + " | EMPLOYEE NAME " + employeeName));
+		
+		System.out.println("*******************************");
+		System.out.println("PRINT KEYS");
+		employeeMap.keySet().forEach(key -> System.out.println(key));
+
+		System.out.println("*******************************");
+		System.out.println("PRINT VALUES");
+		employeeMap.values().forEach(value -> System.out.println(value));
 
 	}
 
