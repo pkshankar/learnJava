@@ -2,6 +2,10 @@ package streamsJava8;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Driver {
 
@@ -36,7 +40,86 @@ public class Driver {
 		guestList.stream().filter(guest -> guest.getGuestGender().equals("Female") && guest.getGuestAge() > 18)
 				.map(filteredGuest -> filteredGuest.getGuestName().toUpperCase())
 				.forEach(output -> System.out.println(output));
-		;
+
+		// 4. PRINT ALL MALES IN UPPERCASE
+
+		System.out.println("*********************************");
+		System.out.println("ALL MALES IN UPPERCASE");
+		guestList.stream().filter(guest -> guest.getGuestGender().equals("Male"))
+				.map(guest -> guest.getGuestName().toUpperCase()).forEach(guest -> System.out.println(guest));
+
+		// 5. SUM OF ALL AGES - APPROACH 1
+
+		System.out.println("*********************************");
+		System.out.println("SUM OF ALL AGES USING MAP TO INT");
+		System.out.println(guestList.stream().mapToInt(guest -> guest.getGuestAge()).sum());
+
+		// 6. SUM OF ALL AGES - APPROACH 2
+
+		System.out.println("*********************************");
+		System.out.println("SUM OF ALL AGES USING REDUCE");
+		System.out.println(guestList.stream().map(guest -> guest.getGuestAge()).reduce(0,
+				(previousPersonAge, currentPersonAge) -> previousPersonAge + currentPersonAge));
+
+		// 7. SUM OF AGES OF ALL FEMALES
+		System.out.println("*********************************");
+		System.out.println("SUM OF ALL AGES OF FEMALES");
+		System.out.println(guestList.stream().filter(guest -> guest.getGuestGender().equals("Female"))
+				.mapToInt(guest -> guest.getGuestAge()).sum());
+
+		// 8. OLDEST PERSON
+
+		System.out.println("*********************************");
+		System.out.println("OLDEST PERSON");
+
+		Optional<Guest> oldestPerson = guestList.stream().max((a, b) -> {
+
+			if (a.getGuestAge() > b.getGuestAge())
+				return 1;
+			else if (a.getGuestAge() < b.getGuestAge())
+				return -1;
+			else
+				return 0;
+
+		});
+
+		System.out.println(oldestPerson.get());
+
+		// 9. YOUNGEST PERSON
+
+		System.out.println("*********************************");
+		System.out.println("YOUNGEST PERSON");
+
+		System.out.println(guestList.stream().min((a, b) -> a.getGuestAge() > b.getGuestAge() ? 1 : -1));
+
+		// 10. COUNT NON ADULTS
+
+		System.out.println("*********************************");
+		System.out.println("COUNT NON ADULTS");
+		System.out.println(guestList.stream().filter(guest -> guest.getGuestAge() < 18).count());
+
+		// 11. COLLECT - TO LIST
+
+		System.out.println("*********************************");
+		System.out.println("COLLECT - TO LIST");
+
+		System.out.println(guestList.stream().collect(Collectors.toList()));
+
+		// 12. COLLECTORS - GROUPING BY
+
+		System.out.println("*********************************");
+		System.out.println("COLLECTORS - GROUPING BY");
+
+		Map<Integer, List<Guest>> map = guestList.stream().collect(Collectors.groupingBy(p -> p.getGuestAge()));
+		map.forEach((k, v) -> System.out.println(k + " : " + v));
+
+		// 13. FIND FIRST PERSON WHOSE NAME IS 4 LETTERS BUT IS OLDER THAN 25
+
+		System.out.println("*********************************");
+		System.out.println("FIND FIRST PERSON WHOSE NAME IS 4 LETTERS BUT IS OLDER THAN 25");
+
+		System.out.println(guestList.stream()
+				.filter(guest -> guest.getGuestName().length() == 4 && guest.getGuestAge() > 25).findFirst());
 
 	}
 
