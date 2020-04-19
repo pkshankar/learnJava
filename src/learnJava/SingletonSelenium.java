@@ -12,7 +12,7 @@ public class SingletonSelenium {
 	private SingletonSelenium(String url) {
 
 		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\P K Shankar\\Documents\\ChromeDriver_Exe\\chromedriver.exe");
+				"C:\\Users\\P K Shankar\\Downloads\\chromedriver_win32\\chromedriver.exe");
 		this.driver = new ChromeDriver();
 		driver.get(url);
 
